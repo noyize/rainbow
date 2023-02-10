@@ -17,9 +17,11 @@ dependencyResolutionManagement {
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-    
+
 rootProject.name = "rainbow"
-    
+
 include(":playground")
+
 include(":lib")
+
 include(":lint")

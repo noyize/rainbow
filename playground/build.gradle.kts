@@ -9,21 +9,17 @@ plugins {
 android {
   namespace = "com.example.rainbow.playground"
   compileSdk = 33
-  
+
   defaultConfig {
     applicationId = "com.example.rainbow.playground"
-    minSdk = 24   
-    targetSdk = 33                
-    versionCode = 1         
-    versionName = "1.0"         
+    minSdk = 24
+    targetSdk = 33
+    versionCode = 1
+    versionName = "1.0"
   }
 
-  buildTypes {
-    getByName("release") {
-      isMinifyEnabled = false
-    }
-  }
-  
+  buildTypes { getByName("release") { isMinifyEnabled = false } }
+
   if (System.getenv("RELEASE_SIGNING_ENABLED") == "true") {
     signingConfigs {
       register("release") {
@@ -39,16 +35,18 @@ android {
   buildTypes {
     getByName("release") {
       isMinifyEnabled = false
-      //proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+      // proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
+      // "proguard-rules.pro")
       firebaseAppDistribution {
         artifactType = "APK"
         appId = "" // Todo: Create app in your firebase project & add App ID here
-        // Todo: Make sure to onboard your app by pressing the "Get started" button on the App Distribution page in the Firebase console:
-  	    // https://console.firebase.google.com/project/_/appdistribution
+        // Todo: Make sure to onboard your app by pressing the "Get started" button on the App
+        // Distribution page in the Firebase console:
+        // https://console.firebase.google.com/project/_/appdistribution
       }
     }
   }
-  
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -67,4 +65,3 @@ dependencies {
   implementation(libs.kotlin.stdlib)
   implementation(libs.android.material)
 }
-
