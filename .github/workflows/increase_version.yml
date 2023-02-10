@@ -1,0 +1,46 @@
+name: Increase lib & playground version
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'New release version'
+        required: true
+
+jobs:
+  increase-version:
+    runs-on: [ macos-latest ]
+    env :
+      RELEASE_VERSION : ${{ github.event.inputs.release_version }}
+      GH_TOKEN : ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - name: Checkout Android source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Set up JDK
+        uses: actions/setup-java@v3.6.0
+        with:
+          distribution: temurin
+          java-version: 18
+          
+      - name: Run increase-version script
+        id: run-increase-version-script
+        run: ./scripts/increase_version $RELEASE_VERSION
+
+      # Todo: Allow Github Actions in your repo to create pull requests
+      # https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#preventing-github-actions-from-creating-or-approving-pull-requests  
+      - name: Commit & push version increase changes
+        id: commit-push-version-increase
+        run: |
+          git commit -am "Increase version to $RELEASE_VERSION"
+          git push -uf origin release/$RELEASE_VERSION
+
+      - name: Raise PR for increased version
+        id: raise-increased-version-PR
+        run: gh pr create --fill
+        

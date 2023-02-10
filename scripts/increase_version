@@ -1,0 +1,57 @@
+#!/bin/bash
+set -euo pipefail
+# This script increases the lib version & playground version code
+# The following steps are completed by running this command | increase-version <version>
+# 1. Creates & checkout release branch release/<version> from updated main branch
+# 2. Update version in gradle.properties for lib to <version>
+# 3. Replace [Unreleased] header in CHANGELOG.md with <version> header
+# 4. Increment playground version code by 1
+
+if [ $# -eq 0 ]; then
+  echo "Usage: ./scripts/increase-version <release_version>"
+  exit 1
+fi
+
+release_version=$1
+
+#Create release branch
+
+git checkout main
+git pull
+git checkout -b release/"$release_version"
+echo "______________________"
+echo "Created release branch"
+
+# This method takes 3 parameter to replace occurrences in a file
+# 1st param - What should be replaced
+# 2nd param - What to replace with
+# 3rd param - Where to replace
+replaceInFile() {
+  if [ "$(uname)" == "Darwin" ]; then
+    sed -i '' "s/$1/$2/g" "$3"
+  else
+    sed -i "s/$1/$2/g" "$3"
+  fi
+}
+
+#Update version in gradle.properties
+
+replaceInFile publishing.version=.* "publishing.version=$release_version" ./gradle.properties
+echo "______________________"
+echo "lib version updated to $release_version in gradle.properties"
+
+
+#Increment playground version code by 1
+
+playground_version_code=$(awk '/versionCode/ {print $3}' ./playground/build.gradle.kts)
+new_version_code=$(bc<<<"$playground_version_code + 1")
+replaceInFile "versionCode = $playground_version_code" "versionCode = $new_version_code" ./playground/build.gradle.kts
+echo "______________________"
+echo "playground version code updated to $new_version_code"
+
+
+#Replace header of changelog
+
+./gradlew -Pversion="$release_version" patchChangelog
+echo "______________________"
+echo "Unreleased header updated to $release_version in CHANGELOG.md"

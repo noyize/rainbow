@@ -1,0 +1,27 @@
+{
+  // TODO: Install renovate bot on Github repo https://github.com/marketplace/renovate
+  "extends": [
+    "config:base"
+  ],
+  "packageRules": [
+    // Disable updates to the following Gradle dependencies since they need to stay
+    // aligned with the app versions and we can't bump them to the latest versions
+    {
+      "managers": ["gradle"],
+      "packagePatterns": [
+        // Android Gradle Plugin
+        "^com.android.application",
+        "^com.android.library",
+        // Kotlin
+        "^org.jetbrains.kotlin",
+        // Material Design Components
+        "^com.google.android.material",
+        // All AndroidX libraries
+        "^androidx",
+      ],
+      // Disable updates for the matching packages 
+      // https://docs.renovatebot.com/configuration-options/#enabled
+      "enabled": false
+    },
+  ]
+}

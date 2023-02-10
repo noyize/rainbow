@@ -1,0 +1,12 @@
+#!/bin/bash
+
+sourceFile=${1}
+targetFile=${2}
+
+if cmp --silent "$sourceFile" "$targetFile"; then
+  echo "$sourceFile has not changed"
+  exit 1
+else
+  echo "$sourceFile has changed"
+  exit 0
+fi

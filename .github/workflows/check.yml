@@ -1,0 +1,46 @@
+on:
+  pull_request:
+    branches:
+      - main
+
+name: Run tests
+
+concurrency:
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3.1.0
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3.6.0
+      with:
+        distribution: temurin
+        java-version: 18
+
+    - name: Run checks
+      uses: gradle/gradle-build-action@v2.3.3
+      with:
+        arguments: check
+        gradle-home-cache-cleanup: true
+
+  verify_changelog_updated:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout main
+      uses: actions/checkout@v3
+      with:
+        ref: main
+        path: main
+
+    - name: Checkout current
+      uses: actions/checkout@v3
+      with:
+        path: current
+
+    - name: Verify CHANGELOG was updated
+      run: current/scripts/verify_file_was_changed main/CHANGELOG.md current/CHANGELOG.md

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- TODO: Update theme styles-->
+  <style name="Theme.Rainbow" parent="Base.Theme.Rainbow" />
+  <!--
+  Naming Convention
+  Theme + Color mode: We will use the following naming convention for themes
+  `Theme.Rainbow.<theme/product-name>.<color-mode>`
+
+  Eg: For `Wallet` product, we can name themes in the following fashion
+  - Default mode (mostly light) can be defined as `Theme.Rainbow.Wallet.Default`
+  - Dark mode (Night or power-saving mode) can be defined as `Theme.Rainbow.Wallet.Dark`
+  -->
+  <style name="Theme.Rainbow.Default">
+    <item name="colorMainPrimary">@color/dls_purple_500</item>
+    <item name="colorTextPrimaryOnColor">@color/dls_white_alpha_90</item>
+    <item name="colorTextPrimary">@color/dls_black_alpha_90</item>
+
+  </style>
+</resources>

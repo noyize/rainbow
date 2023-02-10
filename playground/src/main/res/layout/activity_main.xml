@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appBarLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?colorMainPrimary"
+    app:elevation="4dp">
+
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      style="@style/Widget.AppCompat.ActionBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_scrollFlags="enterAlways|scroll">
+
+      <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/toolbarTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.Rainbow.BodyNormal"
+        android:textColor="?colorTextPrimaryOnColor" />
+
+    </androidx.appcompat.widget.Toolbar>
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/dls_component_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="32dp"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+    app:spanCount="2"
+    tools:listitem="@layout/item_dls_component" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

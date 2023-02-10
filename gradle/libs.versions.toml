@@ -1,0 +1,35 @@
+[versions]
+android = "7.4.1"
+kotlin = "1.7.21"
+# If the AGP is X.Y.Z, then the Lint library version is X+23.Y.Z
+# Read more at https://googlesamples.github.io/android-custom-lint-rules/api-guide.html#example:samplelintcheckgithubproject/lintversion?
+lint = "30.1.3"
+ktfmt = "0.41"
+
+[libraries]
+androidx-appcompat = "androidx.appcompat:appcompat:1.4.1"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
+androidx-corektx = "androidx.core:core-ktx:1.7.0"
+androidx-espresso-core = "androidx.test.espresso:espresso-core:3.4.0"
+androidx-junit = "androidx.test.ext:junit:1.1.3"
+androidx-lifecycle-common = "androidx.lifecycle:lifecycle-common:2.4.1"
+androidx-activity-compose = "androidx.activity:activity-compose:1.3.0"
+android-material = "com.google.android.material:material:1.5.0"
+junit = "junit:junit:4.13.2"
+truth = "com.google.truth:truth:1.1.3"
+lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lint" }
+lint-core = { module = "com.android.tools.lint:lint", version.ref = "lint" }
+lint-tests = { module = "com.android.tools.lint:lint-tests", version.ref = "lint" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android" }
+android-library = { id = "com.android.library", version.ref = "android" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-binaryCompat = "org.jetbrains.kotlinx.binary-compatibility-validator:0.11.0"
+spotless = "com.diffplug.spotless:6.5.2"
+dependencyguard = "com.dropbox.dependency-guard:0.3.2"
+changelog = "org.jetbrains.changelog:2.0.0"
+firebase-appdistribution = "com.google.firebase.appdistribution:3.1.1"

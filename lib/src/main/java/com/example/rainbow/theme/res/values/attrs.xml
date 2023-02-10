@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- TODO: Update theme attributes -->
+  <attr name="colorMainPrimary" format="color" />
+  <attr name="colorTextPrimary" format="color" />
+  <attr name="colorTextPrimaryOnColor" format="color" />
+  
+</resources>

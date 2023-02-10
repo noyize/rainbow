@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginHorizontal="12dp"
+  android:layout_marginVertical="12dp"
+  android:background="?attr/selectableItemBackground"
+  app:cardCornerRadius="4dp"
+  app:cardElevation="6dp">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    android:paddingVertical="12dp">
+
+    <ImageView
+      android:id="@+id/dls_component_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toTopOf="@id/tv_dls_component_name"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="spread_inside"
+      tools:src="@drawable/ic_typography" />
+
+    <TextView
+      android:id="@+id/tv_dls_component_name"
+      style="@style/TextStyle.Rainbow.BodyNormal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="?colorTextPrimary"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/dls_component_icon"
+      tools:text="Typography" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

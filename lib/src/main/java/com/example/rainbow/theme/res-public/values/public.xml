@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--  Theme-->
+  <public name="Theme.Rainbow.Default" type="style" />
+
+  <!--  Core color tokens-->
+  <public name="colorMainPrimary" type="attr" />
+  <public name="colorTextPrimary" type="attr" />
+  <public name="colorTextPrimaryOnColor" type="attr" />
+  
+</resources>

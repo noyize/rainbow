@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="dls_purple_500">#FF9E2BCF</color>
+  <color name="dls_white_alpha_90">#E5FFFFFF</color>
+  <color name="dls_black_alpha_90">#E5000000</color>
+  
+</resources>

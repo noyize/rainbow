@@ -1,0 +1,18 @@
+def gitHooksTask = tasks.register("installGitHooks", Copy) {
+  // Setting a description and group makes it show up `gradle tasks` output.
+  description "Installs the pre-push Git hook to run checks for this repository"
+  group "other"
+
+  // Copy over the hook, set the executable bit.
+  from(rootProject.file("tools/pre-push-hook")) {
+    fileMode = 0755
+  }
+  into(rootProject.file(".git/hooks/"))
+
+  // Rename the file to drop the "-hook" suffix from the file.
+  rename "(.+)-hook", "\$1"
+}
+
+tasks.named("preBuild").configure {
+  finalizedBy(gitHooksTask)
+}

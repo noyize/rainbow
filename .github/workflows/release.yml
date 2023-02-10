@@ -1,0 +1,82 @@
+name: Release lib and playground app
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'New release version'
+        required: true
+      release_commit_hash:
+        description: "Tag's commit hash"
+        required: true
+env :
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_USERNAME: ${{ github.actor }}
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ github.event.inputs.release_version }}
+      COMMIT_HASH: ${{ github.event.inputs.release_commit_hash }}
+    permissions:
+      contents: write
+      repository-projects: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Create tag
+        run: |
+          git tag v$RELEASE_VERSION $COMMIT_HASH
+          git push origin v$RELEASE_VERSION
+
+  release-to-github:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Set up JDK
+        uses: actions/setup-java@v3.6.0
+        with:
+          distribution: temurin
+          java-version: 18
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Release lib to GitHub Packages
+        uses: gradle/gradle-build-action@v2.3.3
+        with:
+          arguments: :lib:publishReleasePublicationToGitHubPackagesRepository
+          gradle-home-cache-cleanup: true
+
+  #Generate a FIREBASE_TOKEN using the Firebase CLI & save in Github secrets
+  #Todo: Install Firebase CLI and Run "firebase login:ci" to get a token for CI
+  release-to-firebase :
+    needs: [ release-to-github ]
+    runs-on: ubuntu-latest
+    steps :
+      - name: Set up JDK
+        uses: actions/setup-java@v3.6.0
+        with :
+          distribution: temurin
+          java-version: 18
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Release app
+        uses: gradle/gradle-build-action@v2.3.3
+        with :
+          arguments: :playground:assembleRelease :playground:appDistributionUploadRelease --no-parallel
+          gradle-home-cache-cleanup: true
+        env :
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          RELEASE_SIGNING_ENABLED: true
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          STORE_FILE: ${{ secrets.STORE_FILE }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
